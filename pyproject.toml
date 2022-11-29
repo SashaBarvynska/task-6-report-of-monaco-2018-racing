@@ -1,0 +1,17 @@
+[project]
+name = "task_6_racers_Barvynska"
+version = "1.1.5"
+authors = [
+  { name="Barvunska Sasha", email="alexbarvynska@gmail.com" },
+]
+description = "The application is to read data from 2 files, order racers by time and print report that shows the top 15 racers and the rest after underline"
+readme = "README.md"
+requires-python = ">=3.10.4"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[task_6_racers_Barvynska.urls]
+"Homepage" = "https://git.foxminded.com.ua/foxstudent103119/task-6-report-of-monaco-2018-racing"
