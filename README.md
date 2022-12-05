@@ -10,7 +10,7 @@ HOW TO USE:
 Create file, for example app.py with following content:
 
 
-from task_6_racers_Barvynska.Cli_to_task import main
+from task_6_Barvynska import main
 
   
 

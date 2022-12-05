@@ -1,6 +1,6 @@
 import pytest
 
-from task_6_racers_Barvynska.task_6 import convert_time
+from task_6_Barvynska import convert_time
 
 
 @pytest.mark.parametrize(

@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from task_6_racers_Barvynska.task_6 import culculate_speed
+from task_6_Barvynska import calculate_speed
 
 
 @pytest.mark.parametrize(
