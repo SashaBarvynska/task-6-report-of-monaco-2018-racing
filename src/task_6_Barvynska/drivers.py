@@ -1,78 +1,83 @@
-import numpy as np
+import math
+from dataclasses import dataclass
+from datetime import datetime
 
-from .format_file import FormatFile
+from pandas import Timedelta
 
 
-class Drivers:
-    def build_report(
-        start_abbreviation: list,
-        start_time: list,
-        end_abbreviation: list,
-        end_time: list,
-        abbreviation: list,
-        racer: list,
-        car: list,
-    ) -> list[str, str, str]:
+@dataclass(order=True)
+class Driver:
+    abbreviation: str
+    driver: str
+    car: str
+    start_time: str
+    end_time: str
+    speed: str = ""
 
-        table_1 = Drivers.__create_sorted_table(start_abbreviation, start_time)
-        table_2 = Drivers.__create_sorted_table(end_abbreviation, end_time)
-        table_3 = Drivers.__sort_by_key_in_dict(
-            dict(zip(abbreviation, zip(racer, car)))
-        )
+    def get_time_difference(self) -> datetime:
+        end = datetime.strptime(self.end_time, "%H:%M:%S.%f")
+        start = datetime.strptime(self.start_time, "%H:%M:%S.%f")
+        return end - start
 
-        list_abbreviation, list_speed = [], []
-        for key in table_1.keys() & table_2.keys():
-            list_abbreviation.append(key)
-            list_speed.append(
-                FormatFile.calculate_speed(np.subtract(table_2[key], table_1[key]))
+    def set_speed(self) -> None:
+        diff = self.get_time_difference()
+        sec = Timedelta(diff).total_seconds()
+        self.speed = self.convert_time(sec)
+
+    def convert_time(self, seconds) -> str:
+        minutes = math.floor((seconds % 3600) / 60)
+        seconds = seconds % 60
+        return f"{minutes}:{seconds:06.3f}"
+
+    def __repr__(self):
+        return str(
+            (
+                self.abbreviation,
+                self.driver,
+                self.car,
+                self.start_time,
+                self.end_time,
+                self.speed,
             )
-
-        table_4 = Drivers.__create_sorted_table(list_abbreviation, list_speed)
-        dict2_sorted: dict = {
-            abbreviation: table_4[abbreviation] for abbreviation in table_3.keys()
-        }
-        sorted_dictionary = Drivers.__create_sorted_table(
-            table_3.keys(),
-            zip(table_3.values(), dict2_sorted.values()),
         )
 
-        list_drivers = []
-        for row in sorted_dictionary.values():
-            full_list = []
-            (driver, car), speed = row
-            driver, car = (driver, car)
-            full_list.append(driver), full_list.append(car), full_list.append(
-                speed
-            ), list_drivers.append(full_list)
-        return list_drivers
 
-    def __sort_by_key_in_dict(table: dict) -> dict:
-        return {abbreviation: table[abbreviation] for abbreviation in sorted(table)}
+class DriversTemp:
+    @classmethod
+    def build_report(
+        cls,
+        content_abbreviations_file: dict[str : dict[str:str]],
+        content_file_start: dict[str : dict[str:datetime]],
+        content_file_ent: dict[str : dict[str:datetime]],
+    ) -> list[str, str, str, str, str, str]:
+        drivers = []
+        for abr, value in content_abbreviations_file.items():
+            car = value["car"]
+            driver = value["driver"]
+            start_time = content_file_start[abr]
+            end_time = content_file_ent[abr]
+            object = Driver(abr, driver, car, start_time, end_time)
+            object.set_speed()
+            drivers.append(object)
+        return drivers
 
-    def __create_sorted_table(key: list, value: list) -> dict:
-        table = dict(zip(key, value))
-        return Drivers.__sort_by_key_in_dict(table)
-
+    @staticmethod
     def sort_data(
-        sort_drivers: list[str, str, str], order=False
-    ) -> list[int, str, str, str]:
-        sort_drivers, sort_drivers_plus_place = (
-            sorted(sort_drivers, key=lambda x: x[-1], reverse=order),
-            [],
-        )
-        for index, value in enumerate(sort_drivers):
-            value.insert(0, index + 1)
-            sort_drivers_plus_place.append(value)
+        drivers: list[str, str, str, str, str, str], order: str
+    ) -> list[str, str, str, str, str, str]:
+        return sorted(drivers, key=lambda x: x.speed, reverse=order)
 
-        return sort_drivers_plus_place
-
+    @staticmethod
     def info_driver(
-        table_sorted: list[int, str, str, str], driver: str
-    ) -> list[int, str, str, str]:
-        return list(filter(lambda x: x[1] == driver, table_sorted))
+        drivers: list[str, str, str, str, str, str], driver: str
+    ) -> list[str]:
+        return [p for p in drivers if p.driver == driver]
 
-    def print_report(list_order: list[int, str, str, str]) -> None:
-        for index, value in enumerate(list_order or []):
-            print(*value, sep=" |", end="\n")
+    @staticmethod
+    def print_report(sorted_list: list[str, str, str, str, str, str]) -> None:
+        for index, value in enumerate(sorted_list):
+            print(f"{index + 1}.{value.driver}     |{value.car}     |{value.speed}")
             if index == 14:
-                print("_____________________________________________________________")
+                print(
+                    "__________________________________________________________________________"
+                )
