@@ -1,6 +1,6 @@
 [project]
 name = "task_6_Barvynska"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Barvunska Sasha", email="alexbarvynska@gmail.com" },
 ]

@@ -1,8 +1,8 @@
 from argparse import ArgumentParser, Namespace
 
-from src.task_6_Barvynska.drivers import DriversTemp
-from src.task_6_Barvynska.files import Files
-from src.task_6_Barvynska.format_file import FormatFileTemp
+from .drivers import DriversTemp
+from .files import Files
+from .format_file import FormatFileTemp
 
 
 def init_args() -> Namespace:
