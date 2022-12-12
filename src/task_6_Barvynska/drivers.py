@@ -1,18 +1,19 @@
 import math
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Optional
 
 from pandas import Timedelta
 
 
-@dataclass(order=True)
+@dataclass()
 class Driver:
     abbreviation: str
     driver: str
     car: str
     start_time: str
     end_time: str
-    speed: str = ""
+    speed: str = Optional[str]
 
     def get_time_difference(self) -> datetime:
         end = datetime.strptime(self.end_time, "%H:%M:%S.%f")
@@ -43,38 +44,37 @@ class Driver:
 
 
 class DriversTemp:
+
     @classmethod
     def build_report(
         cls,
-        content_abbreviations_file: dict[str : dict[str:str]],
-        content_file_start: dict[str : dict[str:datetime]],
-        content_file_ent: dict[str : dict[str:datetime]],
-    ) -> list[str, str, str, str, str, str]:
+        content_abbreviations_file: dict[str: dict[str: str]],
+        content_file_start: dict[str: dict[str: datetime]],
+        content_file_end: dict[str: dict[str: datetime]],
+    ) -> list[str]:
         drivers = []
         for abr, value in content_abbreviations_file.items():
-            car = value["car"]
-            driver = value["driver"]
-            start_time = content_file_start[abr]
-            end_time = content_file_ent[abr]
-            object = Driver(abr, driver, car, start_time, end_time)
-            object.set_speed()
-            drivers.append(object)
+            driver_object = Driver(
+                abbreviation=abr,
+                driver=value["driver"],
+                car=value["car"],
+                start_time=content_file_start[abr],
+                end_time=content_file_end[abr],
+            )
+            driver_object.set_speed()
+            drivers.append(driver_object)
         return drivers
 
     @staticmethod
-    def sort_data(
-        drivers: list[str, str, str, str, str, str], order: str
-    ) -> list[str, str, str, str, str, str]:
+    def sort_data(drivers: list[str], order: str) -> list[str]:
         return sorted(drivers, key=lambda x: x.speed, reverse=order)
 
     @staticmethod
-    def info_driver(
-        drivers: list[str, str, str, str, str, str], driver: str
-    ) -> list[str]:
-        return [p for p in drivers if p.driver == driver]
+    def info_driver(drivers: list[str], driver: str) -> list[str]:
+        return [driver_object for driver_object in drivers if driver_object.driver == driver]
 
     @staticmethod
-    def print_report(sorted_list: list[str, str, str, str, str, str]) -> None:
+    def print_report(sorted_list: list[str]) -> None:
         for index, value in enumerate(sorted_list):
             print(f"{index + 1}.{value.driver}     |{value.car}     |{value.speed}")
             if index == 14:

@@ -20,7 +20,6 @@ def main() -> None:
     if not args.files:
         raise Exception("Required argument not specified '--files'")
     file_start, file_end, abbreviations_file = Files.find_files(args.files)
-
     list_drivers = DriversTemp.build_report(
         FormatFileTemp.format_file_abbreviation_data(
             Files.open_files(abbreviations_file)
@@ -28,8 +27,8 @@ def main() -> None:
         FormatFileTemp.format_file_time(Files.open_files(file_start)),
         FormatFileTemp.format_file_time(Files.open_files(file_end)),
     )
-    sorted_drivers = DriversTemp.sort_data(list_drivers, args.desc)
     if args.driver:
-        DriversTemp.print_report(DriversTemp.info_driver(sorted_drivers, args.driver))
+        DriversTemp.print_report(DriversTemp.info_driver(list_drivers, args.driver))
     else:
-        DriversTemp.print_report(sorted_drivers)
+        order = bool(args.desc)
+        DriversTemp.print_report(DriversTemp.sort_data(list_drivers, order))

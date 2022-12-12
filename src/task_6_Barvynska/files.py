@@ -2,12 +2,11 @@ import os
 
 
 class Files:
+
     @staticmethod
     def open_files(file: str) -> str:
-
         with open(file, "r") as reader:
-            content = reader.read()
-            return content
+            return reader.read()
 
     @staticmethod
     def find_files(path_to_folder: str) -> list[str, str, str]:
@@ -19,7 +18,6 @@ class Files:
         ]
         files_in_folder = list(map(lambda x: x.split("\\")[-1], pathes))
         missing_files = list(filter(lambda x: x not in files_in_folder, files_name))
-
         if missing_files:
             raise FileNotFoundError(f"Following files are missing: {missing_files}")
         return pathes

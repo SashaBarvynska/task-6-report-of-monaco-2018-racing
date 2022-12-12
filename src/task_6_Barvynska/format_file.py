@@ -1,12 +1,12 @@
 from datetime import datetime
-from io import TextIOWrapper
 
 
 class FormatFileTemp:
+
     @staticmethod
     def format_file_abbreviation_data(
-        content: TextIOWrapper,
-    ) -> dict[str:dict[str:str]]:
+        content: str,
+    ) -> dict[str: dict[str: str]]:
         line_objects = {}
         for line in content.strip().split("\n"):
             line_words = line.split("_")
@@ -17,8 +17,8 @@ class FormatFileTemp:
 
     @staticmethod
     def format_file_time(
-        content: TextIOWrapper,
-    ) -> dict[str:dict[str:datetime]]:
+        content: str,
+    ) -> dict[str: dict[str: datetime]]:
         line_objects = {}
         for line in content.split():
             line_objects.update({line[0:3]: line[14:]})

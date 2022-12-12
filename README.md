@@ -14,7 +14,7 @@ from task_6_Barvynska import main
 
   
 
-print(main())
+main()
 
 Run following command in console:
 - Shows statistic about driver:
