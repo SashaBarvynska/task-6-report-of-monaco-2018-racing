@@ -5,12 +5,14 @@ INSTALLATION:
 To install the package use:
 
 pip install -i https://test.pypi.org/simple/ top-15-racers-Barvynska
+
+
 HOW TO USE:
 
 Create file, for example app.py with following content:
 
 
-from task_6_Barvynska import main
+from task_Barvynska import main
 
   
 

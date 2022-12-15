@@ -1,8 +1,8 @@
 from argparse import ArgumentParser, Namespace
 
-from .drivers import DriversTemp
+from .drivers import Drivers
 from .files import Files
-from .format_file import FormatFileTemp
+from .format_file import FormatFile
 
 
 def init_args() -> Namespace:
@@ -20,15 +20,15 @@ def main() -> None:
     if not args.files:
         raise Exception("Required argument not specified '--files'")
     file_start, file_end, abbreviations_file = Files.find_files(args.files)
-    list_drivers = DriversTemp.build_report(
-        FormatFileTemp.format_file_abbreviation_data(
+    list_drivers = Drivers.build_report(
+        FormatFile.format_file_abbreviation_data(
             Files.open_files(abbreviations_file)
         ),
-        FormatFileTemp.format_file_time(Files.open_files(file_start)),
-        FormatFileTemp.format_file_time(Files.open_files(file_end)),
+        FormatFile.format_file_time(Files.open_files(file_start)),
+        FormatFile.format_file_time(Files.open_files(file_end)),
     )
     if args.driver:
-        DriversTemp.print_report(DriversTemp.info_driver(list_drivers, args.driver))
+        Drivers.print_report(Drivers.info_driver(list_drivers, args.driver))
     else:
         order = bool(args.desc)
-        DriversTemp.print_report(DriversTemp.sort_data(list_drivers, order))
+        Drivers.print_report(Drivers.sort_data(list_drivers, order))

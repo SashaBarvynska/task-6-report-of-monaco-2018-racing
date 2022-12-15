@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-class FormatFileTemp:
+class FormatFile:
 
     @staticmethod
     def format_file_abbreviation_data(
