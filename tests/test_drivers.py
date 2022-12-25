@@ -2,9 +2,17 @@ import pytest
 
 from src.task_Barvynska import Drivers
 
-from .conftest import generate_random_driver
+from tests.conftest import generate_random_driver
 
 test_driver = generate_random_driver()
+
+d1 = generate_random_driver()
+d2 = generate_random_driver()
+d3 = generate_random_driver()
+
+d4 = generate_random_driver("1:41.000")
+d5 = generate_random_driver("1:46.000")
+d6 = generate_random_driver("1:51.000")
 
 
 def test_set_speed():
@@ -12,11 +20,6 @@ def test_set_speed():
     test_driver.speed = 0
     test_driver.set_speed()
     assert test_driver.speed == speed
-
-
-d1 = generate_random_driver()
-d2 = generate_random_driver()
-d3 = generate_random_driver()
 
 
 @pytest.mark.parametrize(
@@ -44,11 +47,6 @@ def test_build_report(test_input_1, test_input_2, test_input_3, expected):
         Drivers.build_report(test_input_1, test_input_2, test_input_3).__repr__()
         == expected.__repr__()
     )
-
-
-d4 = generate_random_driver("1:41.000")
-d5 = generate_random_driver("1:46.000")
-d6 = generate_random_driver("1:51.000")
 
 
 @pytest.mark.parametrize(

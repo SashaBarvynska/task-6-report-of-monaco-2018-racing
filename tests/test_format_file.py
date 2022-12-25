@@ -2,8 +2,7 @@ import pytest
 
 from src.task_Barvynska import FormatFile
 
-from .conftest import (convert_driver_to_file_dict, convert_driver_to_file_row,
-                       generate_random_driver)
+from tests.conftest import (convert_driver_to_file_dict, convert_driver_to_file_row, generate_random_driver)
 
 d1 = generate_random_driver()
 d2 = generate_random_driver()

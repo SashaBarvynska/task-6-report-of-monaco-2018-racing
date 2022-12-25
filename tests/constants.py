@@ -1,6 +1,5 @@
 from src.task_Barvynska.drivers import Driver
 
-TEST_FOLDER_PATH = "D:\\Sasha\\Projects\\task-6-report-of-monaco-2018-racing\\data_for_solution_task_6"
 ABBR = [f"A{i}" for i in range(10, 99)]
 DRIVER_NAMES = [f"Test{i}" for i in range(100)]
 CARS = ["MERCEDES", "FERRARI", "AUDI"]

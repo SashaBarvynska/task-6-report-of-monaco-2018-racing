@@ -67,7 +67,7 @@ class Drivers:
         return drivers
 
     @staticmethod
-    def sort_data(drivers: list[Driver], order: str) -> list[Driver]:
+    def sort_data(drivers: list[Driver], order: bool) -> list[Driver]:
         return sorted(drivers, key=lambda x: x.speed, reverse=order)
 
     @staticmethod

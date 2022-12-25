@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "task_Barvynska"
-version = "0.0.4"
+version = "0.0.28"
 authors = [
   { name="SashaBarvynska", email="analitik.1.peo.partner@gmail.com" },
 ]
