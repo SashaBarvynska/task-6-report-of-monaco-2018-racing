@@ -10,7 +10,6 @@ def generate_random_driver(speed=None) -> Driver:
     driver = f'{random.choice(DRIVER_NAMES)} - {random.randint(1, 100)}'
     car = random.choice(CARS)
     abbr = random.choice(ABBR)
-    ABBR.remove(abbr)
     now = datetime.now()
     time_now = str(now)[11:-3]
     end_time = now + timedelta(seconds=random.randint(0, 120))
@@ -21,6 +20,7 @@ def generate_random_driver(speed=None) -> Driver:
     else:
         driver.set_speed()
     return driver
+    print("S")
 
 
 def convert_driver_to_file_row(drivers: list[Driver], file: str) -> str:

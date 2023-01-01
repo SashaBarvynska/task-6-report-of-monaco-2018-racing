@@ -54,7 +54,7 @@ def test_main_with_file(
     mock_find_files,
     mock_init_args,
 ):
-    main() is None
+    assert main() is None
     mock_build_report.assert_called_with(DICT_ABB, DICT_TIME, DICT_TIME)
     mock_format_file_time.assert_called_with("file_content")
     mock_format_file_abbreviation_data.assert_called_with("file_content")
@@ -103,7 +103,7 @@ def test_main_with_file(
     ],
 )
 def test_main_with_driver(mock_info_driver, mock_build_report, mock_format_file_time, mock_format_file_abbreviation_data, mock_open_files, mock_find_files, mock_init_args):
-    main() is None
+    assert main() is None
     mock_info_driver.assert_called_with(LIST_DRIVERS, "Daniel Ricciardo")
     mock_build_report.assert_called_with(DICT_ABB, DICT_TIME, DICT_TIME)
     mock_format_file_time.assert_called_with("file_content")
@@ -137,8 +137,12 @@ def test_main_with_driver(mock_info_driver, mock_build_report, mock_format_file_
 )
 @patch("src.task_Barvynska.drivers.Drivers.build_report", return_value=LIST_DRIVERS)
 @patch("src.task_Barvynska.drivers.Drivers.sort_data", return_value=SORT_LIST_DRIVERS)
-def test_main_sort_data_asc(mock_sort_data, mock_build_report, mock_format_file_time, mock_format_file_abbreviation_data, mock_open_files, mock_find_files, mock_init_args):
-    main() is None
+def test_main_sort_data_asc(
+                            mock_sort_data, mock_build_report,
+                            mock_format_file_time, mock_format_file_abbreviation_data,
+                            mock_open_files, mock_find_files, mock_init_args
+                            ):
+    assert main() is None
     mock_sort_data.assert_called_with(LIST_DRIVERS, False)
     mock_build_report.assert_called_with(DICT_ABB, DICT_TIME, DICT_TIME)
     mock_format_file_time.assert_called_with("file_content")
@@ -172,8 +176,12 @@ def test_main_sort_data_asc(mock_sort_data, mock_build_report, mock_format_file_
 )
 @patch("src.task_Barvynska.drivers.Drivers.build_report", return_value=LIST_DRIVERS)
 @patch("src.task_Barvynska.drivers.Drivers.sort_data", return_value=LIST_DRIVERS)
-def test_main_sort_data_desc(mock_sort_data, mock_build_report, mock_format_file_time, mock_format_file_abbreviation_data, mock_open_files, mock_find_files, mock_init_args):
-    main() is None
+def test_main_sort_data_desc(
+                            mock_sort_data, mock_build_report, mock_format_file_time,
+                            mock_format_file_abbreviation_data, mock_open_files,
+                            mock_find_files, mock_init_args
+                            ):
+    assert main() is None
     mock_sort_data.assert_called_with(LIST_DRIVERS, True)
     mock_build_report.assert_called_with(DICT_ABB, DICT_TIME, DICT_TIME)
     mock_format_file_time.assert_called_with("file_content")

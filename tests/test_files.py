@@ -24,16 +24,14 @@ def test_open_file_success(test_input, expected):
 def test_find_all_files():
     with patch('os.walk') as mockwalk:
         mockwalk.return_value = [
-
-            ("folder", (), ("start.log", "end.log", "abbreviations.txt")),
+            ("", (), ("start.log", "end.log", "abbreviations.txt")),
         ]
-        assert Files.find_files("folder") == ["folder\\start.log", "folder\\end.log", "folder\\abbreviations.txt"]
+        assert Files.find_files("folder") == ['start.log', 'end.log', 'abbreviations.txt']
 
 
 def test_find_any_files():
     with patch('os.walk') as mockwalk:
         mockwalk.return_value = [
-
             ("folder", (), ("end.log", "abbreviations.txt")),
         ]
         with pytest.raises(Exception) as error:
