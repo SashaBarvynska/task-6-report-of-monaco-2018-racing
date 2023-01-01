@@ -1,8 +1,9 @@
 import os
 
 import pathlib
-class Files:
 
+
+class Files:
     @staticmethod
     def open_files(file: str) -> str:
         with open(file, "r") as reader:
@@ -12,7 +13,7 @@ class Files:
     def find_files(path_to_folder: str) -> list[str, str, str]:
         files_name = ["start.log", "end.log", "abbreviations.txt"]
         pathes = []
-        
+
         [
             [pathes.append(os.path.join(root, i)) for i in files_name if i in files]
             for root, _, files in os.walk(path_to_folder)

@@ -20,7 +20,6 @@ def generate_random_driver(speed=None) -> Driver:
     else:
         driver.set_speed()
     return driver
-    print("S")
 
 
 def convert_driver_to_file_row(drivers: list[Driver], file: str) -> str:

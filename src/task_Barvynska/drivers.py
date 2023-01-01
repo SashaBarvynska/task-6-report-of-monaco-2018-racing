@@ -80,5 +80,5 @@ class Drivers:
             print(f"{index + 1}.{value.driver}     |{value.car}     |{value.speed}")
             if index == 14:
                 print(
-                    "__" * 66
+                    "_" * 66
                 )
